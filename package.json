@@ -1,0 +1,28 @@
+{
+  "name": "fennec-studio",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "deploy": "npx wrangler pages deploy out --project-name=fennec-studio",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "framer-motion": "^12.12.1",
+    "lucide-react": "^0.468.0",
+    "next": "^15.3.5",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.3",
+    "@types/react": "^19.1.2",
+    "@types/react-dom": "^19.1.2",
+    "eslint": "^9.30.0",
+    "eslint-config-next": "^15.3.5",
+    "typescript": "^5.8.3"
+  }
+}

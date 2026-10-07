@@ -3,13 +3,16 @@
 import { useState, type CSSProperties } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { useReducedMotion } from "framer-motion";
+import { motion, MotionConfig, useReducedMotion } from "framer-motion";
 import {
   ArrowRight,
   ArrowLeft,
   ArrowUpRight,
   Compass,
   Cpu,
+  Languages,
+  Layers,
+  LayoutDashboard,
   Mail,
   Copy,
   Check,
@@ -75,8 +78,9 @@ export default function Home() {
         title: "Crafted for real impact",
         subtitle: "A selection of deployed digital products built with obsessive attention to user trust and system performance",
         viewCase: "Explore case study",
-        liveDemo: "Live prototype",
-        flagshipBadge: "Flagship Local Commerce Product",
+        liveDemo: "Try it live",
+        flagshipBadge: "Main Product",
+        readyBadge: "Ready to use",
       },
       capabilitiesSection: {
         badge: "Studio Standards",
@@ -111,10 +115,10 @@ export default function Home() {
         emailLabel: "Direct studio email",
         copiedText: "Email copied to clipboard",
         copyAction: "Copy address",
-        sendAction: "Open mail client",
+        sendAction: "Start a project",
       },
       footer: {
-        tagline: "Fennec Studio · Independent Digital Product Engineering in Algiers",
+        tagline: "Independent Digital Product Engineering in Algiers",
         rights: "All rights reserved",
       },
     },
@@ -148,8 +152,9 @@ export default function Home() {
         title: "منتجات صُنعت لتُحدث فرقا حقيقيا",
         subtitle: "مجموعة منتقاة من البرمجيات المنشورة، بُنيت باهتمام فائق ببناء ثقة المستخدم وسرعة الأداء",
         viewCase: "قراءة دراسة الحالة",
-        liveDemo: "النسخة الحية",
-        flagshipBadge: "المنتج الرئيسي للخدمات والحجز",
+        liveDemo: "جرّبه الآن",
+        flagshipBadge: "المنتج الرئيسي",
+        readyBadge: "جاهز للاستخدام",
       },
       capabilitiesSection: {
         badge: "معايير الاستوديو",
@@ -184,10 +189,10 @@ export default function Home() {
         emailLabel: "البريد الإلكتروني المباشر",
         copiedText: "تم نسخ البريد الإلكتروني",
         copyAction: "نسخ البريد",
-        sendAction: "إرسال رسالة",
+        sendAction: "ابدأ مشروعك",
       },
       footer: {
-        tagline: "استوديو فينك · هندسة وتصميم المنتجات الرقمية المستقلة في الجزائر",
+        tagline: "استوديو فينك، هندسة وتصميم المنتجات الرقمية المستقلة في الجزائر",
         rights: "جميع الحقوق محفوظة",
       },
     },
@@ -264,6 +269,10 @@ export default function Home() {
                 <div className="flagship-pill">
                   <Flame size={14} className="pill-flame" />
                   <span>{content.workSection.flagshipBadge}</span>
+                  <span className="flagship-ready">
+                    <span className="flagship-live-dot" />
+                    {content.workSection.readyBadge}
+                  </span>
                 </div>
                 <div className="flagship-brand-row">
                   {flagshipData.logo && (
@@ -288,32 +297,25 @@ export default function Home() {
                   {flagshipData.description}
                 </p>
 
-                <div className="flagship-tags">
-                  {flagshipData.stack.map((tag: string, i: number) => (
-                    <span key={i} className="work-tag">{tag}</span>
-                  ))}
-                </div>
-
                 <div className="flagship-actions">
-                  <Link
-                    href={`/projects/${flagshipSlug}`}
-                    className="taste-btn-primary"
-                  >
-                    <span>{content.workSection.viewCase}</span>
-                    <ArrowIcon size={15} />
-                  </Link>
-
                   {flagshipData.siteUrl && (
                     <a
                       href={flagshipData.siteUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="taste-btn-secondary"
+                      className="taste-btn-primary flagship-cta"
                     >
                       <span>{content.workSection.liveDemo}</span>
-                      <ExternalLink size={14} />
+                      <ExternalLink size={15} />
                     </a>
                   )}
+                  <Link
+                    href={`/projects/${flagshipSlug}`}
+                    className="taste-btn-secondary flagship-cta"
+                  >
+                    <span>{content.workSection.viewCase}</span>
+                    <ArrowIcon size={15} />
+                  </Link>
                 </div>
               </div>
 
@@ -353,57 +355,84 @@ export default function Home() {
           </div>
         </section>
 
-        {/* SECTION 4: METHOD */}
-        <section className="cz-method" id="principles">
-          <div className="cz-inner">
-            <div className="cz-head">
-              <span className="kicker kicker-light">{content.capabilitiesSection.badge}</span>
-              <h2 className="cz-title">{content.capabilitiesSection.title}</h2>
-            </div>
-            <ol className="cz-steps">
-              {content.capabilitiesSection.items.map((item) => (
-                <li key={item.number} className="cz-step">
-                  <span className="cz-num">{item.number}</span>
-                  <h3 className="cz-step-title">{item.title}</h3>
-                  <p className="cz-step-text">{item.text}</p>
-                </li>
-              ))}
+        <MotionConfig reducedMotion="user">
+        {/* SECTION 4: STANDARDS */}
+        <section className="st" id="principles">
+          <div className="st-inner">
+            <h2 className="st-title">{content.capabilitiesSection.title}</h2>
+            <ol className="st-bento">
+              {content.capabilitiesSection.items.map((item, i) => {
+                const Icon = [Compass, Languages, Layers, LayoutDashboard][i % 4];
+                return (
+                  <motion.li
+                    key={item.number}
+                    className={`st-cell st-cell-${i + 1}`}
+                    initial={{ opacity: 0, y: 28 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, amount: 0.25 }}
+                    transition={{ duration: 0.6, delay: (i % 2) * 0.08, ease: [0.16, 1, 0.3, 1] }}
+                  >
+                    <span className="st-icon"><Icon size={22} strokeWidth={1.8} aria-hidden="true" /></span>
+                    <div className="st-cell-body">
+                      <h3 className="st-cell-title">{item.title}</h3>
+                      <p className="st-cell-text">{item.text}</p>
+                    </div>
+                    <span className="st-num" aria-hidden="true">{item.number}</span>
+                  </motion.li>
+                );
+              })}
             </ol>
           </div>
         </section>
 
         {/* SECTION 5: CONTACT */}
-        <section className="cz-contact" id="contact">
-          <div className="cz-inner">
-            <span className="kicker kicker-light">{content.contactSection.badge}</span>
-            <h2 className="cz-contact-title">{content.contactSection.title}</h2>
-            <p className="cz-contact-desc">{content.contactSection.desc}</p>
-            <a href="mailto:info.fennec.vision@gmail.com" className="cz-email" dir="ltr">
-              info.fennec.vision@gmail.com
-              <ArrowUpRight size={28} aria-hidden="true" />
+        <section className="ct" id="contact">
+          <motion.div
+            className="ct-inner"
+            initial={{ opacity: 0, y: 28 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          >
+            <h2 className="ct-title">{content.contactSection.title}</h2>
+            <p className="ct-desc">{content.contactSection.desc}</p>
+            <a href="mailto:info.fennec.vision@gmail.com" className="ct-email" dir="ltr">
+              <span>info.fennec.vision@gmail.com</span>
+              <ArrowUpRight size={36} strokeWidth={1.8} aria-hidden="true" />
             </a>
-            <div className="cz-actions">
-              <a href="mailto:info.fennec.vision@gmail.com" className="cz-btn-primary">
+            <div className="ct-actions">
+              <a href="mailto:info.fennec.vision@gmail.com" className="hx-btn-primary">
                 <Mail size={17} aria-hidden="true" />
                 {content.contactSection.sendAction}
               </a>
-              <button type="button" className="cz-btn-ghost" onClick={copyEmail} aria-live="polite">
+              <button type="button" className="ct-btn-ghost" onClick={copyEmail} aria-live="polite">
                 {copied ? <Check size={17} aria-hidden="true" /> : <Copy size={17} aria-hidden="true" />}
                 {copied ? content.contactSection.copiedText : content.contactSection.copyAction}
               </button>
             </div>
-          </div>
+          </motion.div>
         </section>
+        </MotionConfig>
       </main>
 
-      <footer className="cz-footer">
-        <div className="cz-inner cz-footer-row">
-          <Link href="#top" className="cz-wordmark" aria-label="Fennec Studio">
-            <Image src="/fennec-wordmark.jpg" alt="Fennec" width={150} height={26} />
-          </Link>
-          <p className="cz-footer-tag">{content.footer.tagline}</p>
-          <span className="cz-footer-copy">
-            © {new Date().getFullYear()} Fennec Studio · {content.footer.rights}
+      <footer className="ft">
+        <div className="ft-inner">
+          <div className="ft-brand">
+            <Link href="#top" className="ft-wordmark" aria-label="Fennec Studio">
+              <Image src="/fennec-wordmark.jpg" alt="Fennec" width={150} height={26} />
+            </Link>
+            <p className="ft-tag">{content.footer.tagline}</p>
+          </div>
+          <nav className="ft-nav" aria-label={isArabic ? "روابط سريعة" : "Footer"}>
+            {(isArabic
+              ? [["work", "أعمالنا"], ["principles", "مبادئنا"], ["contact", "تواصل"]]
+              : [["work", "Work"], ["principles", "Principles"], ["contact", "Contact"]]
+            ).map(([id, label]) => (
+              <a key={id} href={`#${id}`}>{label}</a>
+            ))}
+          </nav>
+          <span className="ft-copy">
+            © {new Date().getFullYear()} Fennec Studio. {content.footer.rights}
           </span>
         </div>
       </footer>

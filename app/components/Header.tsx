@@ -6,14 +6,17 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Languages, Menu, X, ArrowUpRight } from "lucide-react";
 
 type Locale = "en" | "ar";
+type NavItem = { id: string; label: string; href?: string };
 
 interface HeaderProps {
   locale: Locale;
   onToggleLocale: () => void;
   isArabic: boolean;
+  // Prefix for in-page anchors. Empty on the home page; "/" or "/en" on other pages.
+  anchorBase?: string;
 }
 
-export function Header({ locale, onToggleLocale, isArabic }: HeaderProps) {
+export function Header({ locale, onToggleLocale, isArabic, anchorBase = "" }: HeaderProps) {
   const [activeSection, setActiveSection] = useState<string>("top");
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -68,18 +71,24 @@ export function Header({ locale, onToggleLocale, isArabic }: HeaderProps) {
   const navItems = isArabic
     ? [
         { id: "top", label: "الرئيسية" },
-        { id: "vision", label: "رؤيتنا" },
+        { id: "vision", label: "موقفنا" },
+        { id: "vision-page", label: "رؤيتنا", href: "/vision" },
         { id: "work", label: "أعمالنا" },
         { id: "principles", label: "مبادئنا" },
         { id: "contact", label: "تواصل" },
       ]
     : [
         { id: "top", label: "Home" },
-        { id: "vision", label: "Vision" },
+        { id: "vision", label: "Stance" },
+        { id: "vision-page", label: "Vision", href: "/en/vision" },
         { id: "work", label: "Work" },
         { id: "principles", label: "Principles" },
         { id: "contact", label: "Contact" },
       ];
+
+  // Items with an explicit href (the Vision page) navigate normally. Anchor items
+  // scroll in place when their section exists, otherwise they follow the link to the home page.
+  const hrefFor = (item: NavItem) => item.href ?? `${anchorBase}#${item.id}`;
 
   const ctaText = isArabic ? "ابدأ مشروعك" : "Start a project";
 
@@ -119,13 +128,12 @@ export function Header({ locale, onToggleLocale, isArabic }: HeaderProps) {
   }, [menuOpen]);
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
-    e.preventDefault();
     setMenuOpen(false);
-    setActiveSection(id);
     const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-    }
+    if (!element) return;
+    e.preventDefault();
+    setActiveSection(id);
+    element.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
@@ -133,7 +141,7 @@ export function Header({ locale, onToggleLocale, isArabic }: HeaderProps) {
       <header className={`modern-header ${scrolled ? "header-scrolled" : ""} ${isArabic ? "arabic-header" : ""}`}>
         <div className="header-inner">
           <a
-            href="#top"
+            href={`${anchorBase}#top`}
             className="brand-wordmark-link"
             onClick={(e) => handleNavClick(e, "top")}
             aria-label="Fennec Studio"
@@ -155,7 +163,7 @@ export function Header({ locale, onToggleLocale, isArabic }: HeaderProps) {
                 return (
                   <li key={item.id} className="nav-item">
                     <a
-                      href={`#${item.id}`}
+                      href={hrefFor(item)}
                       onClick={(e) => handleNavClick(e, item.id)}
                       className={`nav-link ${isActive ? "active" : ""}`}
                       aria-current={isActive ? "page" : undefined}
@@ -186,7 +194,7 @@ export function Header({ locale, onToggleLocale, isArabic }: HeaderProps) {
               <span className="lang-text">{isArabic ? "EN" : "عربي"}</span>
             </button>
 
-            <a href="#contact" className="header-cta" onClick={(e) => handleNavClick(e, "contact")}>
+            <a href={`${anchorBase}#contact`} className="header-cta" onClick={(e) => handleNavClick(e, "contact")}>
               <span>{ctaText}</span>
               <ArrowUpRight size={14} aria-hidden="true" />
             </a>
@@ -249,7 +257,7 @@ export function Header({ locale, onToggleLocale, isArabic }: HeaderProps) {
                 {navItems.map((item) => (
                   <li key={item.id}>
                     <a
-                      href={`#${item.id}`}
+                      href={hrefFor(item)}
                       onClick={(e) => handleNavClick(e, item.id)}
                       className={`drawer-nav-link ${activeSection === item.id ? "active" : ""}`}
                     >
@@ -261,7 +269,7 @@ export function Header({ locale, onToggleLocale, isArabic }: HeaderProps) {
 
               <div className="drawer-footer">
                 <a
-                  href="#contact"
+                  href={`${anchorBase}#contact`}
                   className="drawer-cta"
                   onClick={(e) => handleNavClick(e, "contact")}
                 >

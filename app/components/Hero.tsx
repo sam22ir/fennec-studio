@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
-import { ArrowDown, ArrowLeft, ArrowRight } from "lucide-react";
+import { ArrowDown, ArrowLeft, ArrowRight, Pause, Play } from "lucide-react";
 import { productBrands, productOrder } from "./product-brands";
 import { projects } from "../projects/project-data";
 
@@ -20,6 +20,8 @@ interface HeroProps {
 export function Hero({ locale, isArabic, reducedMotion }: HeroProps) {
   const [active, setActive] = useState(0);
   const [paused, setPaused] = useState(false);
+  // set by the visitor's own pause button; stays paused until they press play
+  const [userPaused, setUserPaused] = useState(false);
 
   const content = {
     en: {
@@ -29,6 +31,8 @@ export function Hero({ locale, isArabic, reducedMotion }: HeroProps) {
       exploreBtn: "See the products",
       caseLink: "Case study",
       shelfLabel: "Five products, one studio",
+      pause: "Pause rotation",
+      play: "Play rotation",
     },
     ar: {
       lead: "برمجيات مفيدة",
@@ -37,19 +41,21 @@ export function Hero({ locale, isArabic, reducedMotion }: HeroProps) {
       exploreBtn: "شاهد المنتجات",
       caseLink: "دراسة الحالة",
       shelfLabel: "خمسة منتجات، استوديو واحد",
+      pause: "إيقاف التبديل",
+      play: "تشغيل التبديل",
     },
   }[locale];
 
   // the first switch comes quickly so visitors notice the headline is alive, then it settles into a calmer pace
   const firstSwitch = useRef(true);
   useEffect(() => {
-    if (paused || reducedMotion) return;
+    if (paused || userPaused || reducedMotion) return;
     const t = setTimeout(() => {
       firstSwitch.current = false;
       setActive((i) => (i + 1) % productOrder.length);
     }, firstSwitch.current ? 1200 : 2800);
     return () => clearTimeout(t);
-  }, [active, paused, reducedMotion]);
+  }, [active, paused, userPaused, reducedMotion]);
 
   const slug = productOrder[active];
   const brand = productBrands[slug];
@@ -89,6 +95,18 @@ export function Hero({ locale, isArabic, reducedMotion }: HeroProps) {
               {content.exploreBtn}
               <ArrowDown size={17} aria-hidden="true" />
             </button>
+            {!reducedMotion && (
+              <button
+                type="button"
+                className="hx-btn-toggle"
+                aria-pressed={userPaused}
+                aria-label={userPaused ? content.play : content.pause}
+                onClick={() => setUserPaused((p) => !p)}
+              >
+                {userPaused ? <Play size={15} aria-hidden="true" /> : <Pause size={15} aria-hidden="true" />}
+                <span>{userPaused ? content.play : content.pause}</span>
+              </button>
+            )}
           </div>
         </div>
 

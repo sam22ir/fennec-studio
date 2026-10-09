@@ -443,7 +443,7 @@ export function HomeContent({ initialLocale }: { initialLocale: Locale }) {
         <div className="ft-inner">
           <div className="ft-brand">
             <Link href="#top" className="ft-wordmark" aria-label="Fennec Studio">
-              <Image src="/fennec-wordmark.jpg" alt="Fennec" width={150} height={26} />
+              <Image src="/fennec-wordmark.webp" alt="Fennec" width={150} height={26} />
             </Link>
             <p className="ft-tag">{content.footer.tagline}</p>
           </div>

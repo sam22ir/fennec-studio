@@ -41,7 +41,7 @@ export const projects: Record<ProjectSlug, { en: LocalizedProject; ar: Localized
       siteUrl: "https://koupa-website.pages.dev",
       siteLabel: "Visit Koupa web",
       theme: "koupa-theme",
-      logo: "/projects/koupa-logo.jpg",
+      logo: "/projects/koupa-logo.webp",
     },
     ar: {
       name: "Koupa",
@@ -64,7 +64,7 @@ export const projects: Record<ProjectSlug, { en: LocalizedProject; ar: Localized
       siteUrl: "https://koupa-website.pages.dev",
       siteLabel: "زر موقع Koupa",
       theme: "koupa-theme",
-      logo: "/projects/koupa-logo.jpg",
+      logo: "/projects/koupa-logo.webp",
     },
   },
   nabdh: {
@@ -89,7 +89,7 @@ export const projects: Record<ProjectSlug, { en: LocalizedProject; ar: Localized
       siteUrl: "https://nabdh.uk",
       siteLabel: "Visit Live Platform",
       theme: "nabdh-theme",
-      logo: "/projects/nabdh-logo.jpg",
+      logo: "/projects/nabdh-logo.webp",
     },
     ar: {
       name: "نبض",
@@ -112,7 +112,7 @@ export const projects: Record<ProjectSlug, { en: LocalizedProject; ar: Localized
       siteUrl: "https://nabdh.uk",
       siteLabel: "زر المنصة المباشرة",
       theme: "nabdh-theme",
-      logo: "/projects/nabdh-logo.jpg",
+      logo: "/projects/nabdh-logo.webp",
     },
   },
   masroof: {
@@ -137,7 +137,7 @@ export const projects: Record<ProjectSlug, { en: LocalizedProject; ar: Localized
       siteUrl: "https://masroof-legal.pages.dev",
       siteLabel: "Explore Masroof",
       theme: "masroof-theme",
-      logo: "/projects/masarif-logo.png",
+      logo: "/projects/masarif-logo.webp",
     },
     ar: {
       name: "مصاريف",
@@ -160,7 +160,7 @@ export const projects: Record<ProjectSlug, { en: LocalizedProject; ar: Localized
       siteUrl: "https://masroof-legal.pages.dev",
       siteLabel: "استكشف مصاريف",
       theme: "masroof-theme",
-      logo: "/projects/masarif-logo.png",
+      logo: "/projects/masarif-logo.webp",
     },
   },
   lamsa: {
@@ -185,7 +185,7 @@ export const projects: Record<ProjectSlug, { en: LocalizedProject; ar: Localized
       siteUrl: "https://lamsa-website.nafaa-store.workers.dev/",
       siteLabel: "Visit Lamsa web",
       theme: "lamsa-theme",
-      logo: "/projects/lamsa-logo.png",
+      logo: "/projects/lamsa-logo.webp",
     },
     ar: {
       name: "لمسة",
@@ -208,7 +208,7 @@ export const projects: Record<ProjectSlug, { en: LocalizedProject; ar: Localized
       siteUrl: "https://lamsa-website.nafaa-store.workers.dev/",
       siteLabel: "زر موقع لمسة",
       theme: "lamsa-theme",
-      logo: "/projects/lamsa-logo.png",
+      logo: "/projects/lamsa-logo.webp",
     },
   },
   nexus: {
@@ -233,7 +233,7 @@ export const projects: Record<ProjectSlug, { en: LocalizedProject; ar: Localized
       siteUrl: "https://nexus-guard.nafaa-store.workers.dev/",
       siteLabel: "Visit Nexus web",
       theme: "nexus-theme",
-      logo: "/projects/nexus-logo.png",
+      logo: "/projects/nexus-logo.webp",
     },
     ar: {
       name: "Nexus",
@@ -256,7 +256,7 @@ export const projects: Record<ProjectSlug, { en: LocalizedProject; ar: Localized
       siteUrl: "https://nexus-guard.nafaa-store.workers.dev/",
       siteLabel: "زيارة موقع Nexus",
       theme: "nexus-theme",
-      logo: "/projects/nexus-logo.png",
+      logo: "/projects/nexus-logo.webp",
     },
   },
 };

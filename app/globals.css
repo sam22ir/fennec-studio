@@ -2823,3 +2823,6 @@ html { scroll-behavior: smooth; }
   .sw-product-icon { width: 50px; height: 50px; border-radius: 15px; }
   .sw-product-name { font-size: 0.78rem; }
 }
+
+/* Arabic letters only join at zero tracking; keep letter-spacing for Latin text (LTR). */
+.is-rtl * { letter-spacing: normal; }

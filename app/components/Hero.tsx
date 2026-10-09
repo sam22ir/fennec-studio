@@ -64,7 +64,7 @@ export function Hero({ locale, isArabic, reducedMotion }: HeroProps) {
         <div className="hx-copy">
           <h1 className="hx-title">
             <span className="hx-title-lead">{content.lead}</span>
-            <span className="hx-rotor">
+            <span className="hx-rotor" aria-live="polite">
               <AnimatePresence mode="popLayout" initial={false}>
                 <motion.span
                   key={slug}

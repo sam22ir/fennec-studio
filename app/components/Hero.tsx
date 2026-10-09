@@ -7,6 +7,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { ArrowDown, ArrowLeft, ArrowRight, Pause, Play } from "lucide-react";
 import { productBrands, productOrder } from "./product-brands";
 import { projects } from "../projects/project-data";
+import { nextTabIndex } from "./tab-keys";
 
 type Locale = "en" | "ar";
 
@@ -22,6 +23,7 @@ export function Hero({ locale, isArabic, reducedMotion }: HeroProps) {
   const [paused, setPaused] = useState(false);
   // set by the visitor's own pause button; stays paused until they press play
   const [userPaused, setUserPaused] = useState(false);
+  const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
 
   const content = {
     en: {
@@ -125,13 +127,26 @@ export function Hero({ locale, isArabic, reducedMotion }: HeroProps) {
               return (
                 <button
                   key={s}
+                  ref={(el) => {
+                    tabRefs.current[i] = el;
+                  }}
+                  id={`hero-tab-${i}`}
                   type="button"
                   role="tab"
                   aria-selected={i === active}
+                  aria-controls="hero-tab-panel"
+                  tabIndex={i === active ? 0 : -1}
                   aria-label={projects[s][locale].name}
                   className={`hx-tile${i === active ? " is-active" : ""}`}
                   style={{ background: b.tile }}
                   onClick={() => setActive(i)}
+                  onKeyDown={(e) => {
+                    const next = nextTabIndex(e.key, i, productOrder.length, isArabic);
+                    if (next === null) return;
+                    e.preventDefault();
+                    setActive(next);
+                    tabRefs.current[next]?.focus();
+                  }}
                 >
                   <Image src={b.mark} alt="" width={120} height={120} className="hx-tile-img" />
                 </button>
@@ -142,6 +157,9 @@ export function Hero({ locale, isArabic, reducedMotion }: HeroProps) {
           <AnimatePresence mode="wait" initial={false}>
             <motion.div
               key={slug}
+              id="hero-tab-panel"
+              role="tabpanel"
+              aria-labelledby={`hero-tab-${active}`}
               className="hx-card"
               style={{ borderTopColor: brand.ink }}
               initial={{ opacity: 0, y: 14 }}

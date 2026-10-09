@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { Languages, Menu, X, ArrowUpRight } from "lucide-react";
@@ -18,10 +18,52 @@ export function Header({ locale, onToggleLocale, isArabic }: HeaderProps) {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const toggleRef = useRef<HTMLButtonElement>(null);
+  const drawerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     setMounted(true);
   }, []);
+
+  // While the drawer is open: Escape closes it, Tab stays inside it,
+  // focus moves in on open and returns to the menu toggle on close.
+  useEffect(() => {
+    if (!menuOpen) return;
+    const drawer = drawerRef.current;
+    const toggle = toggleRef.current;
+    const getFocusable = () =>
+      Array.from(drawer?.querySelectorAll<HTMLElement>("a[href], button:not([disabled])") ?? []);
+
+    getFocusable()[0]?.focus();
+
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        e.preventDefault();
+        setMenuOpen(false);
+        return;
+      }
+      if (e.key !== "Tab") return;
+      const items = getFocusable();
+      if (items.length === 0) return;
+      const first = items[0];
+      const last = items[items.length - 1];
+      const current = document.activeElement;
+      const outside = !drawer?.contains(current);
+      if (e.shiftKey && (current === first || outside)) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && (current === last || outside)) {
+        e.preventDefault();
+        first.focus();
+      }
+    };
+
+    document.addEventListener("keydown", onKeyDown);
+    return () => {
+      document.removeEventListener("keydown", onKeyDown);
+      toggle?.focus();
+    };
+  }, [menuOpen]);
 
   const navItems = isArabic
     ? [
@@ -150,6 +192,7 @@ export function Header({ locale, onToggleLocale, isArabic }: HeaderProps) {
             </a>
 
             <button
+              ref={toggleRef}
               className="mobile-toggle"
               type="button"
               onClick={() => setMenuOpen(!menuOpen)}
@@ -173,6 +216,10 @@ export function Header({ locale, onToggleLocale, isArabic }: HeaderProps) {
             onClick={() => setMenuOpen(false)}
           >
             <motion.div
+              ref={drawerRef}
+              role="dialog"
+              aria-modal="true"
+              aria-label={isArabic ? "القائمة" : "Menu"}
               className="mobile-drawer"
               initial={{ x: isArabic ? "100%" : "-100%" }}
               animate={{ x: 0 }}

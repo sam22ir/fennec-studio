@@ -12,6 +12,7 @@ import {
   LamsaInteractivePreview,
   NexusInteractivePreview,
 } from "../../components/ProjectPreviews";
+import { AndroidDownload } from "../../components/AndroidDownload";
 
 type Locale = "en" | "ar";
 
@@ -220,6 +221,10 @@ export function CaseStudyClient({ slug }: CaseStudyClientProps) {
             </div>
           </div>
         </section>
+
+        {project.android && (
+          <AndroidDownload android={project.android} isArabic={isArabic} />
+        )}
 
         {project.siteUrl && (
           <section className="case-section-block bg-subtle">

@@ -2,6 +2,12 @@ export const projectSlugs = ["koupa", "lamsa", "nabdh", "masroof", "nexus"] as c
 
 export type ProjectSlug = (typeof projectSlugs)[number];
 
+export interface AndroidDownload {
+  version: string;
+  size: string;
+  url: string;
+}
+
 export interface LocalizedProject {
   name: string;
   status: string;
@@ -16,6 +22,7 @@ export interface LocalizedProject {
   siteLabel: string;
   theme: string;
   logo: string;
+  android?: AndroidDownload;
 }
 
 export const projects: Record<ProjectSlug, { en: LocalizedProject; ar: LocalizedProject }> = {
@@ -41,6 +48,7 @@ export const projects: Record<ProjectSlug, { en: LocalizedProject; ar: Localized
       siteUrl: "https://koupa-website.pages.dev",
       siteLabel: "Visit Koupa web",
       theme: "koupa-theme",
+      android: { version: "", size: "", url: "" },
       logo: "/projects/koupa-logo.webp",
     },
     ar: {
@@ -64,6 +72,7 @@ export const projects: Record<ProjectSlug, { en: LocalizedProject; ar: Localized
       siteUrl: "https://koupa-website.pages.dev",
       siteLabel: "زر موقع Koupa",
       theme: "koupa-theme",
+      android: { version: "", size: "", url: "" },
       logo: "/projects/koupa-logo.webp",
     },
   },
@@ -137,6 +146,7 @@ export const projects: Record<ProjectSlug, { en: LocalizedProject; ar: Localized
       siteUrl: "https://masroof-legal.pages.dev",
       siteLabel: "Explore Masroof",
       theme: "masroof-theme",
+      android: { version: "", size: "", url: "" },
       logo: "/projects/masarif-logo.webp",
     },
     ar: {
@@ -160,6 +170,7 @@ export const projects: Record<ProjectSlug, { en: LocalizedProject; ar: Localized
       siteUrl: "https://masroof-legal.pages.dev",
       siteLabel: "استكشف مصاريف",
       theme: "masroof-theme",
+      android: { version: "", size: "", url: "" },
       logo: "/projects/masarif-logo.webp",
     },
   },
@@ -185,6 +196,7 @@ export const projects: Record<ProjectSlug, { en: LocalizedProject; ar: Localized
       siteUrl: "https://lamsa-website.nafaa-store.workers.dev/",
       siteLabel: "Visit Lamsa web",
       theme: "lamsa-theme",
+      android: { version: "", size: "", url: "" },
       logo: "/projects/lamsa-logo.webp",
     },
     ar: {
@@ -208,6 +220,7 @@ export const projects: Record<ProjectSlug, { en: LocalizedProject; ar: Localized
       siteUrl: "https://lamsa-website.nafaa-store.workers.dev/",
       siteLabel: "زر موقع لمسة",
       theme: "lamsa-theme",
+      android: { version: "", size: "", url: "" },
       logo: "/projects/lamsa-logo.webp",
     },
   },
@@ -233,6 +246,7 @@ export const projects: Record<ProjectSlug, { en: LocalizedProject; ar: Localized
       siteUrl: "https://nexus-guard.nafaa-store.workers.dev/",
       siteLabel: "Visit Nexus web",
       theme: "nexus-theme",
+      android: { version: "", size: "", url: "" },
       logo: "/projects/nexus-logo.webp",
     },
     ar: {
@@ -256,6 +270,7 @@ export const projects: Record<ProjectSlug, { en: LocalizedProject; ar: Localized
       siteUrl: "https://nexus-guard.nafaa-store.workers.dev/",
       siteLabel: "زيارة موقع Nexus",
       theme: "nexus-theme",
+      android: { version: "", size: "", url: "" },
       logo: "/projects/nexus-logo.webp",
     },
   },

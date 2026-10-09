@@ -1,45 +1,14 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { SITE_NAME, SITE_URL } from "./site-config";
+import { JsonLd } from "./components/JsonLd";
+import { SITE_URL } from "./site-config";
+import { siteJsonLd } from "./seo/json-ld";
 
-const siteTitle = "Fennec | Useful digital products from Algeria";
-const siteDescription = "Fennec is an independent Algerian product studio building clearer digital experiences for care, local services, beauty, personal finance, and developer tools.";
-// Absolute URL so crawlers and social platforms resolve the preview image directly.
-const siteImage = {
-  url: `${SITE_URL}/og-image.png`,
-  width: 1200,
-  height: 630,
-  alt: "Fennec Studio · فينيك ستوديو",
-};
-
+// Fallback metadata for routes without their own. Each page sets its own via pageMetadata().
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  title: siteTitle,
-  description: siteDescription,
-  alternates: {
-    canonical: "/",
-    languages: {
-      ar: "/",
-      en: "/en",
-      "x-default": "/",
-    },
-  },
-  openGraph: {
-    title: siteTitle,
-    description: siteDescription,
-    url: "/",
-    siteName: SITE_NAME,
-    locale: "ar_DZ",
-    alternateLocale: ["en_US"],
-    type: "website",
-    images: [siteImage],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: siteTitle,
-    description: siteDescription,
-    images: [siteImage.url],
-  },
+  title: "فينك | منتجات رقمية مفيدة من الجزائر",
+  description: "فينك استوديو مستقل للمنتجات الرقمية من الجزائر، يبني تجارب رقمية أوضح للرعاية الصحية والخدمات المحلية والجمال والمال الشخصي وأدوات المطورين.",
   verification: {
     google: "mHrpWHfL2NNe0M-w7p-_pZ7Ms9v6t_lPIryZCXKQbcQ",
   },
@@ -61,6 +30,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <meta name="theme-color" content="#f9f9f6" media="(prefers-color-scheme: dark)" />
       </head>
       <body style={{ backgroundColor: "#f9f9f6", color: "#141b15" }}>
+        <JsonLd data={siteJsonLd()} />
         {children}
       </body>
     </html>

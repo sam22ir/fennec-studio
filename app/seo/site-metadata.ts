@@ -8,7 +8,7 @@ export const siteImage = {
   url: `${SITE_URL}/og-image.png`,
   width: 1200,
   height: 630,
-  alt: "Fennec Studio · فينيك ستوديو",
+  alt: "Fennec Studio · فينك ستوديو",
 };
 
 const ogLocale: Record<SiteLocale, string> = { ar: "ar_DZ", en: "en_US" };

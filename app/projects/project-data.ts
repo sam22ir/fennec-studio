@@ -214,7 +214,7 @@ export const projects: Record<ProjectSlug, { en: LocalizedProject; ar: Localized
   nexus: {
     en: {
       name: "Nexus",
-      status: "In development",
+      status: "Alpha, live now",
       category: "Developer Tools",
       headline: "Connect your agents once. Link your services once",
       description: "Nexus is a desktop control plane for developers running several AI coding agents. It routes each agent to the right project, environment, and service account, and refuses anything unresolved",
@@ -237,7 +237,7 @@ export const projects: Record<ProjectSlug, { en: LocalizedProject; ar: Localized
     },
     ar: {
       name: "Nexus",
-      status: "قيد التطوير",
+      status: "نسخة ألفا، متاحة الآن",
       category: "أدوات المطورين",
       headline: "اربط وكلاءك مرة واحدة، واربط خدماتك مرة واحدة",
       description: "Nexus لوحة تحكم لسطح المكتب للمطورين الذين يشغّلون عدة وكلاء برمجة بالذكاء الاصطناعي. توجّه كل وكيل إلى المشروع والبيئة وحساب الخدمة الصحيح، وترفض أي طلب غير محدد",

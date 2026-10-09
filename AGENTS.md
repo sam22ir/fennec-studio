@@ -1,28 +1,45 @@
 # Repository Guidelines
 
+## Project Overview
+
+Fennec Studio website: a Next.js (App Router) site built as a static export and deployed to Cloudflare Pages (project `fennec-studio`, output `out/`). Pages are bilingual (English and Arabic). Git history exists on `origin/main` (GitHub `sam22ir/fennec-studio`).
+
 ## Project Structure & Module Organization
 
-This repository is currently a blank project workspace. Keep the root limited to project configuration and top-level documentation. As application code is introduced, use a predictable layout:
-
-- `src/` for production source code, organized by feature or domain.
-- `tests/` for automated tests, mirroring paths below `src/` where practical.
-- `public/` or `assets/` for static files such as images and fonts.
-- `docs/` for design notes, setup instructions, and architectural decisions.
+- `app/page.tsx` — home page (`/`), with `app/layout.tsx` and `app/globals.css` for the shared shell and styles.
+- `app/projects/page.tsx` — project index (`/projects`).
+- `app/projects/[slug]/page.tsx` and `CaseStudyClient.tsx` — case study pages (`/projects/koupa`, `lamsa`, `nabdh`, `masroof`, `nexus`), statically generated via `generateStaticParams`.
+- `app/projects/project-data.ts` — source of truth for project content (slugs, English and Arabic copy, logos, screens). Edit project content here.
+- `app/components/` — shared UI (`Header`, `Hero`, `ProjectPreviews`, `KoupaShowcase`, animated marks, and similar).
+- `public/` — static assets (`fennec-*.jpg` brand images, `projects/` logos, marks and screens, `fonts/`).
+- `docs/superpowers/` — design specs and plans.
+- Root holds only configuration and top-level docs (`README.md`, `PRODUCT.md`, `CREDITS.md`, `AGENTS.md`).
 
 Avoid placing reusable production code directly in the repository root. Prefer small, focused modules with explicit imports over large catch-all utility files.
 
 ## Build, Test, and Development Commands
 
-No build system or package manager is configured yet. When adding one, document the canonical commands in `README.md` and keep them consistent with package scripts. A JavaScript-based setup, for example, should provide:
+Package manager is npm (`package-lock.json`). Scripts from `package.json`:
 
 ```bash
-npm run dev      # start the local development server
-npm run build    # create a production build
-npm test         # run the automated test suite
-npm run lint     # check style and common errors
+npm install      # install dependencies
+npm run dev      # start the local development server (next dev)
+npm run lint     # eslint .
+npm run typecheck  # tsc --noEmit
+npm run build    # next build; writes the static export to out/
+npm run start    # next start (not used for the static export)
+npm run deploy   # npx wrangler pages deploy out --project-name=fennec-studio
 ```
 
-Do not commit generated build output, dependency directories, or local environment files.
+There is no test script configured yet. When adding tests, add a `test` script to `package.json` and document it here.
+
+Deploy with `npm run build` followed by `npm run deploy`. Cloudflare settings are in `wrangler.jsonc` (`pages_build_output_dir: ./out`).
+
+## Configuration
+
+- `next.config.ts` sets `output: "export"` and `images.unoptimized: true`, so the site is fully static. Do not add server-only features (API routes, server actions, image optimization) without changing this.
+- `tsconfig.json`, `eslint.config.mjs` (extends `eslint-config-next`) and `next-env.d.ts` (generated) are the tool configs.
+- Do not commit `node_modules/`, `.next/`, `out/`, `.wrangler/`, or local environment files.
 
 ## Coding Style & Naming Conventions
 
@@ -30,11 +47,11 @@ Follow the formatter and linter selected for the project; do not hand-format fil
 
 ## Testing Guidelines
 
-Add or update tests with every behavior change. Name tests after the behavior under test, for example `user-profile.test.ts` or `test_user_profile.py`. Include success cases, validation failures, and regressions for fixed defects. Run the full relevant test and lint commands before opening a pull request.
+Add or update tests with every behavior change once a test runner exists. Name tests after the behavior under test. Until then, run `npm run lint`, `npm run typecheck` and `npm run build` before opening a pull request.
 
 ## Commit & Pull Request Guidelines
 
-Git history is not available in this workspace, so no existing commit convention can be inferred. Use concise imperative subjects, such as `Add profile validation` or `Fix mobile navigation`. Keep commits focused. Pull requests should explain the change, list verification performed, link relevant issues, and include screenshots for visible UI changes.
+Use concise imperative subjects, such as `Add profile validation` or `Fix mobile navigation`. Keep commits focused. Pull requests should explain the change, list verification performed, link relevant issues, and include screenshots for visible UI changes.
 
 ## Configuration & Security
 

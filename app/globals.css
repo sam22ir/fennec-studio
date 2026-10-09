@@ -43,7 +43,7 @@
   --surface-alt: #f2f2ed;
   --ink: #141b15;
   --ink-secondary: #4a594d;
-  --ink-muted: #738276;
+  --ink-muted: #5d6b5f;
   --line: rgba(20, 27, 21, 0.1);
   --line-strong: rgba(20, 27, 21, 0.18);
   --sans: "IBM Plex Sans Arabic", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -1429,7 +1429,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 }
 
 .time-btn small {
-  font-size: 0.65rem;
+  font-size: 0.75rem;
   font-weight: 600;
   font-family: var(--sans);
   opacity: 0.6;
@@ -2205,7 +2205,7 @@ img, svg, video, canvas {
 
   .stage-topbar-case {
     padding: 12px 14px;
-    font-size: 0.64rem;
+    font-size: 0.75rem;
     letter-spacing: 0.04em;
     gap: 8px;
   }

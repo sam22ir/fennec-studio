@@ -109,7 +109,7 @@ export function CaseStudyClient({ slug }: CaseStudyClientProps) {
                 <div className="case-logo-badge">
                   <Image
                     src={project.logo}
-                    alt={project.name}
+                    alt={`${project.name} logo`}
                     width={64}
                     height={64}
                     className="project-logo-img"

@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState, type CSSProperties, type PointerEvent } from "react";
 import { AnimatePresence, MotionConfig, motion, useReducedMotion } from "framer-motion";
+import { nextTabIndex } from "./tab-keys";
 
 // One booking told from both sides: the customer books on the front phone,
 // and the same appointment lands on the barber's phone in real time.
@@ -105,6 +106,7 @@ export function KoupaShowcase({ isArabic }: { isArabic: boolean }) {
   const [cycle, setCycle] = useState(0); // restarts per-step animations when a step is re-selected
   const [arrived, setArrived] = useState(false); // barber screen updates once the ticket lands
   const stageRef = useRef<HTMLDivElement>(null);
+  const stepRefs = useRef<(HTMLButtonElement | null)[]>([]);
 
   const goTo = (i: number) => {
     setIndex(i);
@@ -166,7 +168,7 @@ export function KoupaShowcase({ isArabic }: { isArabic: boolean }) {
             type="button"
             className="ks-phone"
             onClick={() => goTo(index === 3 ? 4 : 3)}
-            aria-label={isArabic ? "عرض جهة الحلاق" : "Show the barber side"}
+            aria-label={isArabic ? "هاتف الحلاق، عرض الخطوة" : "Barber phone, show step"}
           >
             <Screen src={barberScreen} alt={isArabic ? "شاشة الحلاق في Koupa" : "Koupa barber screen"} />
             {index === 3 && arrived && <span key={`ping-${cycle}`} className="ks-arrive" aria-hidden="true">+1</span>}
@@ -180,9 +182,9 @@ export function KoupaShowcase({ isArabic }: { isArabic: boolean }) {
             type="button"
             className="ks-phone"
             onClick={() => goTo((index + 1) % steps.length)}
-            aria-label={isArabic ? "الخطوة التالية" : "Next step"}
+            aria-label={isArabic ? "هاتف الزبون، الخطوة التالية" : "Customer phone, next step"}
           >
-            <Screen src={step.customer} alt={isArabic ? step.capAr : step.capEn} />
+            <Screen src={step.customer} alt={isArabic ? "شاشة الزبون في Koupa" : "Koupa customer screen"} />
           </button>
         </div>
 
@@ -219,7 +221,13 @@ export function KoupaShowcase({ isArabic }: { isArabic: boolean }) {
         )}
       </div>
 
-      <p className="ks-caption" aria-live="polite">
+      <p
+        id="koupa-step-panel"
+        role="tabpanel"
+        aria-labelledby={`koupa-step-${index}`}
+        className="ks-caption"
+        aria-live="polite"
+      >
         <span className="ks-caption-num">{String(index + 1).padStart(2, "0")}</span>
         {isArabic ? step.capAr : step.capEn}
       </p>
@@ -231,11 +239,24 @@ export function KoupaShowcase({ isArabic }: { isArabic: boolean }) {
           {steps.map((s, i) => (
             <button
               key={s.id}
+              ref={(el) => {
+                stepRefs.current[i] = el;
+              }}
+              id={`koupa-step-${i}`}
               type="button"
               role="tab"
               aria-selected={i === index}
+              aria-controls="koupa-step-panel"
+              tabIndex={i === index ? 0 : -1}
               className={`ks-step${i === index ? " is-active" : ""}${i < index ? " is-done" : ""}`}
               onClick={() => goTo(i)}
+              onKeyDown={(e) => {
+                const next = nextTabIndex(e.key, i, steps.length, isArabic);
+                if (next === null) return;
+                e.preventDefault();
+                goTo(next);
+                stepRefs.current[next]?.focus();
+              }}
             >
               {isArabic ? s.ar : s.en}
             </button>

@@ -2823,3 +2823,15 @@ html { scroll-behavior: smooth; }
   .sw-product-icon { width: 50px; height: 50px; border-radius: 15px; }
   .sw-product-name { font-size: 0.78rem; }
 }
+
+/* Arabic text joins letters, so letter-spacing must stay at 0 in RTL.
+   Latin (LTR) headings keep their tracking. */
+.is-rtl .hero-main-title,
+.is-rtl .section-title,
+.is-rtl .section-badge,
+.is-rtl .hx-title,
+.is-rtl .vx-title,
+.is-rtl .st-title,
+.is-rtl .ct-title {
+  letter-spacing: 0;
+}

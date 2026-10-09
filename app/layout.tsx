@@ -2,6 +2,15 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://fennec-studio.pages.dev"),
+  alternates: {
+    canonical: "/",
+    languages: {
+      ar: "/",
+      en: "/en",
+      "x-default": "/",
+    },
+  },
   title: "Fennec | Useful digital products from Algeria",
   description: "Fennec is an independent Algerian product studio building clearer digital experiences for care, local services, beauty, personal finance, and developer tools.",
   verification: {

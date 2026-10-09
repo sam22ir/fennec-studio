@@ -8,6 +8,7 @@ import { Compass, Cpu, Globe, Languages, Layers, LayoutDashboard, MapPin, Gauge,
 import { Header } from "../components/Header";
 import { productBrands } from "../components/product-brands";
 import { projects, type ProjectSlug } from "../projects/project-data";
+import { visionFaq } from "./vision-faq";
 
 type Locale = "en" | "ar";
 
@@ -226,7 +227,25 @@ export function VisionContent({ initialLocale }: { initialLocale: Locale }) {
           </div>
         </section>
 
-        {/* 4. WHAT'S NEXT */}
+        {/* 4. FAQ */}
+        <section className="st vs-principles" id="faq" aria-labelledby="vs-faq-title">
+          <div className="st-inner">
+            <div className="vs-principles-head">
+              <span className="kicker">{isArabic ? "أسئلة شائعة" : "Questions"}</span>
+              <h2 className="st-title" id="vs-faq-title">{isArabic ? "أسئلة وأجوبة سريعة" : "Quick answers"}</h2>
+            </div>
+            <ul className="vs-principle-list">
+              {visionFaq[locale].map((item) => (
+                <li key={item.question} className="vs-principle">
+                  <h3 className="sw-title">{item.question}</h3>
+                  <p className="sw-desc">{item.answer}</p>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
+
+        {/* 5. WHAT'S NEXT */}
         <section className="vs-next" id="next" aria-labelledby="vs-next-title">
           <div className="vs-next-inner">
             <span className="kicker">{t.nextBadge}</span>

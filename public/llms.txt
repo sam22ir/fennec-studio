@@ -1,0 +1,27 @@
+# Fennec Studio
+
+> Fennec Studio (فينك ستوديو) is an independent Algerian product studio based in Algiers. It builds bilingual (Arabic and English) digital products for care, local services, beauty, personal finance, and developer tools.
+
+Fennec Studio presents its work as one vision: every Algerian handles their day from their phone, clearly and in their own language, without queues or waiting. Products are designed Arabic-first where relevant, and English and Arabic are treated as equally intentional.
+
+Contact: info.fennec.vision@gmail.com
+
+## Pages
+
+- [Home (Arabic)](https://fennec-studio.pages.dev/): Studio overview and selected work
+- [Home (English)](https://fennec-studio.pages.dev/en): English version of the studio overview
+- [Vision (Arabic)](https://fennec-studio.pages.dev/vision): Studio vision, commitments, products and FAQ
+- [Vision (English)](https://fennec-studio.pages.dev/en/vision): English version of the vision page, with FAQ
+- [All products and projects](https://fennec-studio.pages.dev/projects): Index of the studio's products
+
+## Products
+
+- [Koupa](https://fennec-studio.pages.dev/projects/koupa): Barbershop discovery and time reservations for neighborhood barbers. Status: in active development. Platforms: iOS and Android. Web: https://koupa-website.pages.dev
+- [Lamsa](https://fennec-studio.pages.dev/projects/lamsa): Arabic-first Android app for women's beauty salons in Algeria, with booking by specialist and time. Status: early release. Web: https://lamsa-website.nafaa-store.workers.dev/
+- [Nabdh](https://fennec-studio.pages.dev/projects/nabdh): Arabic-first medical booking platform connecting patients with doctors and clinics across Algeria. Status: available outside Google Play. Web: https://nabdh.uk
+- [Masroof](https://fennec-studio.pages.dev/projects/masroof): Offline-first personal expense tracker for Algerian Dinar (DZD) workflows, recurring bills and savings milestones. All data stays on the device. Status: available outside Google Play. Web: https://masroof-legal.pages.dev
+- [Nexus](https://fennec-studio.pages.dev/projects/nexus): Desktop control plane for developers running several AI coding agents. It routes each agent to the right project, environment and service account, and keeps credentials in the OS keychain. Status: alpha, live now. Web: https://nexus-guard.nafaa-store.workers.dev/
+
+## Optional
+
+- [Sitemap](https://fennec-studio.pages.dev/sitemap.xml): All public pages with language alternates

@@ -117,12 +117,12 @@ export const projects: Record<ProjectSlug, { en: LocalizedProject; ar: Localized
   },
   masroof: {
     en: {
-      name: "Masarif",
+      name: "Masroof",
       status: "Available outside Google Play",
       category: "Personal Finance",
       headline: "Calm, local-first companion for your everyday money",
-      description: "Masarif is an offline-first personal expense tracker built for Algerian Dinar workflows, recurring bills, and savings milestones",
-      context: "Managing money shouldn't feel like a math exam or require sharing bank logins. Masarif keeps your financial ledger strictly private, offline-first, and aligned with local spending habits",
+      description: "Masroof is an offline-first personal expense tracker built for Algerian Dinar workflows, recurring bills, and savings milestones",
+      context: "Managing money shouldn't feel like a math exam or require sharing bank logins. Masroof keeps your financial ledger strictly private, offline-first, and aligned with local spending habits",
       approach: [
         ["01", "Offline Privacy", "All financial records remain 100% on your device with local SQLite storage"],
         ["02", "DZD-Native Categories", "Pre-configured spending buckets reflecting Algerian living expenses"],
@@ -135,7 +135,7 @@ export const projects: Record<ProjectSlug, { en: LocalizedProject; ar: Localized
         ["Currency", "Algerian Dinar (DZD)"],
       ],
       siteUrl: "https://masroof-legal.pages.dev",
-      siteLabel: "Explore Masarif",
+      siteLabel: "Explore Masroof",
       theme: "masroof-theme",
       logo: "/projects/masarif-logo.png",
     },

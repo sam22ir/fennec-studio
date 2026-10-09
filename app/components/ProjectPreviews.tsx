@@ -112,7 +112,7 @@ export function MasroofInteractivePreview({ isArabic }: { isArabic: boolean }) {
     <div className="preview-card-frame preview-masroof-frame">
       <div className="preview-app-shell masroof-shell">
         <div className="masroof-topbar">
-          <span className="masroof-app-title">مصاريف · MASARIF</span>
+          <span className="masroof-app-title">مصاريف · MASROOF</span>
           <span className="masroof-month">{isArabic ? "أوت 2026" : "August 2026"}</span>
         </div>
 

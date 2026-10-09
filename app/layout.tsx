@@ -46,13 +46,12 @@ export const viewport = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="ar" dir="rtl" style={{ colorScheme: "light only" }} suppressHydrationWarning>
+    <html lang="ar" dir="rtl">
       <head>
-        <meta name="color-scheme" content="light only" />
         <meta name="theme-color" content="#f9f9f6" media="(prefers-color-scheme: light)" />
         <meta name="theme-color" content="#f9f9f6" media="(prefers-color-scheme: dark)" />
       </head>
-      <body style={{ colorScheme: "light only", backgroundColor: "#f9f9f6", color: "#141b15" }} suppressHydrationWarning>
+      <body style={{ backgroundColor: "#f9f9f6", color: "#141b15" }}>
         {children}
       </body>
     </html>

@@ -58,7 +58,7 @@ export default function ProjectsIndexPage() {
         <div className="header-inner">
           <Link href="/" className="brand-wordmark-link" aria-label="Fennec Studio">
             <Image
-              src="/fennec-wordmark.jpg"
+              src="/fennec-wordmark.webp"
               alt="Fennec"
               width={150}
               height={30}
@@ -168,7 +168,7 @@ export default function ProjectsIndexPage() {
           <div className="footer-top">
             <Link href="/" className="footer-brand" aria-label="Fennec Studio">
               <Image
-                src="/fennec-wordmark.jpg"
+                src="/fennec-wordmark.webp"
                 alt="Fennec"
                 width={150}
                 height={30}

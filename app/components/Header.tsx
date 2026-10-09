@@ -139,7 +139,7 @@ export function Header({ locale, onToggleLocale, isArabic }: HeaderProps) {
             aria-label="Fennec Studio"
           >
             <Image
-              src="/fennec-wordmark.jpg"
+              src="/fennec-wordmark.webp"
               alt="Fennec"
               width={160}
               height={32}
@@ -229,7 +229,7 @@ export function Header({ locale, onToggleLocale, isArabic }: HeaderProps) {
             >
               <div className="drawer-header">
                 <Image
-                  src="/fennec-wordmark.jpg"
+                  src="/fennec-wordmark.webp"
                   alt="Fennec"
                   width={140}
                   height={28}

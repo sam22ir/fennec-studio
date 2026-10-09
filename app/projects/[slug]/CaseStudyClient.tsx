@@ -68,7 +68,7 @@ export function CaseStudyClient({ slug }: CaseStudyClientProps) {
           <div className="case-header-inner">
             <Link href="/" className="case-brand-logo" aria-label="Fennec Studio">
               <Image
-                src="/fennec-wordmark.jpg"
+                src="/fennec-wordmark.webp"
                 alt="Fennec"
                 width={140}
                 height={28}
@@ -242,7 +242,7 @@ export function CaseStudyClient({ slug }: CaseStudyClientProps) {
             <div className="case-footer-brand">
               <Link href="/" aria-label="Fennec Studio">
                 <Image
-                  src="/fennec-wordmark.jpg"
+                  src="/fennec-wordmark.webp"
                   alt="Fennec"
                   width={150}
                   height={30}

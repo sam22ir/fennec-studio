@@ -33,7 +33,7 @@ function Screen({ src, alt }: { src: string; alt: string }) {
     <AnimatePresence initial={false}>
       <motion.img
         key={src}
-        src={`/projects/koupa-screens/${src}.jpg`}
+        src={`/projects/koupa-screens/${src}.webp`}
         alt={alt}
         width={578}
         height={1214}

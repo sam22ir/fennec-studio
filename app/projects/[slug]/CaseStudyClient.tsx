@@ -221,6 +221,22 @@ export function CaseStudyClient({ slug }: CaseStudyClientProps) {
           </div>
         </section>
 
+        {project.siteUrl && (
+          <section className="case-section-block bg-subtle">
+            <div className="case-content-container">
+              <a
+                href={project.siteUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="btn-case-primary"
+              >
+                <span>{project.siteLabel}</span>
+                <ArrowUpRight size={17} />
+              </a>
+            </div>
+          </section>
+        )}
+
         <footer className="case-footer-modern">
           <div className="case-footer-inner">
             <div className="case-footer-brand">

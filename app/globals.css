@@ -56,7 +56,6 @@
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 html {
-  color-scheme: light only;
   background-color: var(--paper);
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
@@ -64,7 +63,6 @@ html {
 }
 
 body {
-  color-scheme: light only;
   background-color: var(--paper);
   color: var(--ink);
   font-family: var(--sans);
@@ -79,7 +77,6 @@ body {
   :root,
   html,
   body {
-    color-scheme: light only;
     background-color: #f9f9f6;
     color: #141b15;
   }

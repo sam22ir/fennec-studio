@@ -36,6 +36,7 @@ export function HomeContent({ initialLocale }: { initialLocale: Locale }) {
   const router = useRouter();
   const locale = initialLocale;
   const [copied, setCopied] = useState(false);
+  const [copyFailed, setCopyFailed] = useState(false);
   const isArabic = locale === "ar";
   const reducedMotion = useReducedMotion();
 
@@ -49,10 +50,17 @@ export function HomeContent({ initialLocale }: { initialLocale: Locale }) {
     router.push(isArabic ? "/en" : "/");
   };
 
-  const copyEmail = () => {
-    navigator.clipboard.writeText("info.fennec.vision@gmail.com");
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2400);
+  const copyEmail = async () => {
+    try {
+      await navigator.clipboard.writeText("info.fennec.vision@gmail.com");
+      setCopyFailed(false);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2400);
+    } catch {
+      setCopied(false);
+      setCopyFailed(true);
+      setTimeout(() => setCopyFailed(false), 2400);
+    }
   };
 
   const ArrowIcon = isArabic ? ArrowLeft : ArrowRight;
@@ -124,6 +132,7 @@ export function HomeContent({ initialLocale }: { initialLocale: Locale }) {
         desc: "We partner with ambitious teams and founders building serious digital infrastructure in Algeria and the MENA region",
         emailLabel: "Direct studio email",
         copiedText: "Email copied to clipboard",
+        copyFailedText: "Copy failed, select the address instead",
         copyAction: "Copy address",
         sendAction: "Start a project",
       },
@@ -198,6 +207,7 @@ export function HomeContent({ initialLocale }: { initialLocale: Locale }) {
         desc: "نتعاون مع الفرق الطموحة والمؤسسين الذين يبنون بنية تحتية رقمية جادة في الجزائر والمنطقة",
         emailLabel: "البريد الإلكتروني المباشر",
         copiedText: "تم نسخ البريد الإلكتروني",
+        copyFailedText: "تعذّر النسخ، حدّد العنوان يدويًا",
         copyAction: "نسخ البريد",
         sendAction: "ابدأ مشروعك",
       },
@@ -417,7 +427,11 @@ export function HomeContent({ initialLocale }: { initialLocale: Locale }) {
               </a>
               <button type="button" className="ct-btn-ghost" onClick={copyEmail} aria-live="polite">
                 {copied ? <Check size={17} aria-hidden="true" /> : <Copy size={17} aria-hidden="true" />}
-                {copied ? content.contactSection.copiedText : content.contactSection.copyAction}
+                {copied
+                  ? content.contactSection.copiedText
+                  : copyFailed
+                    ? content.contactSection.copyFailedText
+                    : content.contactSection.copyAction}
               </button>
             </div>
           </motion.div>

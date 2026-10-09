@@ -4,4 +4,4 @@
 
 # Font Credits
 
-- `public/fonts/IBMPlexSansArabic-*.ttf`: IBM Plex Sans Arabic, SIL Open Font License 1.1 (see `public/fonts/OFL.txt`).
+- `public/fonts/IBMPlexSansArabic-*.woff2 (subset from the original TTFs)`: IBM Plex Sans Arabic, SIL Open Font License 1.1 (see `public/fonts/OFL.txt`).

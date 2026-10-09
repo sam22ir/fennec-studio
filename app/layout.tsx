@@ -11,6 +11,11 @@ export const metadata: Metadata = {
   description: siteDescription,
   alternates: {
     canonical: "/",
+    languages: {
+      ar: "/",
+      en: "/en",
+      "x-default": "/",
+    },
   },
   openGraph: {
     title: siteTitle,

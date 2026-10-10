@@ -1,17 +1,22 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowLeft, ArrowRight, ArrowUpRight, Languages } from "lucide-react";
 import { projects, projectSlugs, type ProjectSlug } from "./project-data";
+import type { SiteLocale } from "../seo/site-metadata";
 
-type Locale = "en" | "ar";
+interface ProjectsIndexProps {
+  locale: SiteLocale;
+}
 
-export function ProjectsIndex() {
-  const [locale, setLocale] = useState<Locale>("ar");
+export function ProjectsIndex({ locale }: ProjectsIndexProps) {
   const isArabic = locale === "ar";
   const BackIcon = isArabic ? ArrowRight : ArrowLeft;
+  const homeHref = isArabic ? "/" : "/en";
+  const projectsBase = isArabic ? "/projects" : "/en/projects";
+  const switchHref = isArabic ? "/en/projects" : "/projects";
 
   useEffect(() => {
     document.documentElement.lang = locale;
@@ -56,7 +61,7 @@ export function ProjectsIndex() {
     <div className={`fennec-taste-root ${isArabic ? "is-rtl" : "is-ltr"}`} dir={isArabic ? "rtl" : "ltr"}>
       <header className="modern-header">
         <div className="header-inner">
-          <Link href="/" className="brand-wordmark-link" aria-label="Fennec Studio">
+          <Link href={homeHref} className="brand-wordmark-link" aria-label="Fennec Studio">
             <Image
               src="/fennec-wordmark.webp"
               alt="Fennec"
@@ -68,17 +73,17 @@ export function ProjectsIndex() {
           </Link>
 
           <div className="header-actions">
-            <button
-              type="button"
+            <Link
+              href={switchHref}
+              hrefLang={isArabic ? "en" : "ar"}
               className="lang-pill"
-              onClick={() => setLocale((p) => (p === "en" ? "ar" : "en"))}
               aria-label={ui.langAria}
             >
               <Languages size={14} className="lang-icon" aria-hidden="true" />
               <span className="lang-text">{ui.langSwitch}</span>
-            </button>
+            </Link>
 
-            <Link href="/" className="header-cta">
+            <Link href={homeHref} className="header-cta">
               <BackIcon size={15} />
               <span>{ui.backHome}</span>
             </Link>
@@ -139,7 +144,7 @@ export function ProjectsIndex() {
                     flexWrap: "wrap",
                   }}
                 >
-                  <Link href={`/projects/${slug}`} className="duo-link">
+                  <Link href={`${projectsBase}/${slug}`} className="duo-link">
                     <span>{ui.readCase}</span>
                     <BackIcon size={14} />
                   </Link>
@@ -166,7 +171,7 @@ export function ProjectsIndex() {
       <footer className="taste-footer">
         <div className="footer-container">
           <div className="footer-top">
-            <Link href="/" className="footer-brand" aria-label="Fennec Studio">
+            <Link href={homeHref} className="footer-brand" aria-label="Fennec Studio">
               <Image
                 src="/fennec-wordmark.webp"
                 alt="Fennec"
@@ -181,7 +186,7 @@ export function ProjectsIndex() {
             <span className="footer-copy">
               © {new Date().getFullYear()} Fennec Studio · {ui.rights}
             </span>
-            <Link href="/" className="footer-meta" style={{ textDecoration: "underline" }}>
+            <Link href={homeHref} className="footer-meta" style={{ textDecoration: "underline" }}>
               {ui.home}
             </Link>
           </div>

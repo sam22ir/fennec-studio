@@ -25,6 +25,7 @@ export async function generateMetadata({
     description: project.ar.description,
     path: `/projects/${slug}`,
     locale: "ar",
+    translations: { ar: `/projects/${slug}`, en: `/en/projects/${slug}` },
   });
 }
 
@@ -40,8 +41,8 @@ export default async function CaseStudyPage({
 
   return (
     <>
-      <JsonLd data={projectJsonLd(slug as ProjectSlug)} />
-      <CaseStudyClient slug={slug as ProjectSlug} />
+      <JsonLd data={projectJsonLd(slug as ProjectSlug, "ar")} />
+      <CaseStudyClient slug={slug as ProjectSlug} locale="ar" />
     </>
   );
 }

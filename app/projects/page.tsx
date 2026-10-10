@@ -7,8 +7,9 @@ export const metadata: Metadata = pageMetadata({
   description: "منتجات فينك المنشورة وقيد التطوير، من حجز المواعيد والرعاية الصحية إلى المال الشخصي وأدوات المطورين، صُممت حول احتياجات حقيقية في الجزائر.",
   path: "/projects",
   locale: "ar",
+  translations: { ar: "/projects", en: "/en/projects" },
 });
 
 export default function ProjectsPage() {
-  return <ProjectsIndex />;
+  return <ProjectsIndex locale="ar" />;
 }

@@ -2869,6 +2869,22 @@ html { scroll-behavior: smooth; }
 .vs-next-slots { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(14px, 1.6vw, 20px); }
 .vs-next-slot { min-height: 140px; display: grid; place-items: center; border: 1px dashed var(--line-strong); border-radius: 22px; }
 .vs-next-label { font-size: 0.95rem; font-weight: 600; color: var(--ink-muted); }
+.vs-wait { display: flex; flex-direction: column; gap: 16px; padding: clamp(20px, 2.4vw, 28px); border: 1px solid var(--line-strong); border-radius: 22px; }
+.vs-wait-title { margin: 0; font-size: 1.05rem; font-weight: 700; color: var(--ink); }
+.vs-wait-form { display: flex; flex-wrap: wrap; gap: 12px; align-items: flex-end; }
+.vs-wait-field { display: flex; flex: 1 1 220px; flex-direction: column; gap: 6px; min-width: 0; }
+.vs-wait-field label { font-size: 0.85rem; font-weight: 600; color: var(--ink-muted); }
+.vs-wait-field input { width: 100%; min-width: 0; padding: 12px 14px; font: inherit; color: var(--ink); background: var(--surface); border: 1px solid var(--line-strong); border-radius: 14px; box-sizing: border-box; }
+.vs-wait-field input:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+.vs-wait-hp { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
+.vs-wait-submit { padding: 12px 22px; font: inherit; font-weight: 700; color: var(--surface); background: var(--ink); border: 0; border-radius: 14px; cursor: pointer; }
+.vs-wait-submit:disabled { opacity: 0.6; cursor: wait; }
+.vs-wait-submit:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+.vs-wait-status { min-height: 1.5em; margin: 0; font-size: 0.9rem; color: var(--ink-secondary); }
+@media (max-width: 560px) {
+  .vs-wait-form { flex-direction: column; align-items: stretch; }
+  .vs-wait-submit { width: 100%; }
+}
 @media (max-width: 960px) {
   .vs-groups, .vs-principle-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }

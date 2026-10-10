@@ -9,6 +9,7 @@ import { Header } from "../components/Header";
 import { productBrands } from "../components/product-brands";
 import { projects, type ProjectSlug } from "../projects/project-data";
 import { visionFaq } from "./vision-faq";
+import { WaitlistForm } from "./waitlist-form";
 
 type Locale = "en" | "ar";
 
@@ -257,6 +258,7 @@ export function VisionContent({ initialLocale }: { initialLocale: Locale }) {
                 </li>
               ))}
             </ul>
+            <WaitlistForm locale={locale} />
           </div>
         </section>
       </main>

@@ -2849,18 +2849,42 @@ html { scroll-behavior: smooth; }
 .vs-pillar { display: flex; flex-direction: column; gap: 12px; padding: clamp(22px, 2.6vw, 32px); border: 1px solid var(--line); border-radius: 22px; background: var(--paper); }
 .vs-map-section { background: var(--paper); }
 .vs-map-inner { max-width: 1200px; margin: 0 auto; padding: clamp(72px, 10vw, 128px) var(--page-x); display: flex; flex-direction: column; align-items: center; gap: clamp(32px, 4vw, 52px); }
-.vs-hub { display: grid; place-items: center; width: min(260px, 70vw); aspect-ratio: 1; border-radius: 50%; background: var(--green-subtle); box-shadow: inset 0 0 0 1px rgba(0, 98, 51, 0.18); }
-.vs-hub-label { font-family: var(--display); font-size: 1.1rem; font-weight: 700; color: var(--green-deep); }
-.vs-groups { width: 100%; list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(14px, 1.6vw, 20px); }
-.vs-group { display: flex; flex-direction: column; gap: 12px; padding: clamp(18px, 2vw, 24px); border: 1px solid var(--line); border-radius: 22px; background: var(--surface); }
-.vs-group-title { margin: 0; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; color: var(--ink-muted); }
-.vs-group-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
-.vs-product { display: flex; align-items: center; gap: 12px; padding: 8px; margin: -8px; border-radius: 16px; color: var(--ink); transition: background 0.2s; }
-.vs-product:hover, .vs-product:focus-visible { background: color-mix(in srgb, var(--px-ink) 7%, transparent); }
-.vs-product:focus-visible { outline: 2px solid var(--px-ink); outline-offset: 2px; }
-.vs-product-main { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
-.vs-product-name { font-family: var(--display); font-size: 1.05rem; font-weight: 700; }
-.vs-product-line { font-size: 0.85rem; line-height: 1.5; color: var(--ink-secondary); }
+/* Ecosystem orbit: a hub with five app nodes that turn slowly around it. */
+.eco { position: relative; width: min(560px, 100%); aspect-ratio: 1; margin: 0 auto; }
+.eco-svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
+.eco-spoke { stroke: var(--green); stroke-opacity: 0.28; stroke-width: 1.5; stroke-dasharray: 4 6; }
+.eco-hub { position: absolute; left: 50%; top: 50%; width: 30%; aspect-ratio: 1; transform: translate(-50%, -50%); display: grid; place-items: center; border-radius: 50%; background: var(--green-subtle); box-shadow: inset 0 0 0 1px rgba(0, 98, 51, 0.18); }
+.eco-hub-label { font-family: var(--display); font-size: clamp(0.95rem, 2.4vw, 1.2rem); font-weight: 700; color: var(--green-deep); }
+.eco-node { position: absolute; width: 15%; aspect-ratio: 1; transform: translate(-50%, -50%); }
+.eco-node-button { position: relative; display: block; width: 100%; height: 100%; padding: 0; border: 0; background: none; cursor: pointer; color: var(--ink); font: inherit; -webkit-tap-highlight-color: transparent; }
+.eco-node-button:focus-visible { outline: none; }
+.eco-node-button:focus-visible .eco-node-tile { outline: 2px solid var(--px-ink); outline-offset: 3px; }
+.eco-node-tile { display: grid; place-items: center; width: 100%; height: 100%; border-radius: 26%; overflow: hidden; box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12); transition: transform 0.2s; }
+.eco-node-tile img { width: 70%; height: auto; }
+.eco-node-button:hover .eco-node-tile, .eco-node-button[aria-expanded="true"] .eco-node-tile { transform: scale(1.06); }
+.eco-node-label { position: absolute; top: 100%; left: 50%; transform: translateX(-50%); margin-top: 8px; white-space: nowrap; font-size: 0.85rem; font-weight: 700; }
+.eco-hint { position: absolute; left: 0; right: 0; bottom: -2.6rem; margin: 0; text-align: center; font-size: 0.85rem; color: var(--ink-muted); }
+.eco-card-anchor { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: min(300px, 62%); z-index: 3; }
+.eco-card { position: relative; display: flex; flex-direction: column; gap: 10px; padding: 22px; background: var(--surface); border: 1px solid var(--line); border-radius: 22px; box-shadow: 0 24px 60px rgba(0, 0, 0, 0.14); text-align: start; }
+.eco-card-close { position: absolute; top: 10px; inset-inline-end: 10px; width: 32px; height: 32px; border: 0; border-radius: 50%; background: var(--green-subtle); color: var(--ink); font-size: 1.2rem; line-height: 1; cursor: pointer; }
+.eco-card-tag { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; }
+.eco-card-title { margin: 0; font-family: var(--display); font-size: 1.35rem; font-weight: 700; color: var(--ink); }
+.eco-card-text { margin: 0; font-size: 0.95rem; line-height: 1.6; color: var(--ink-secondary); }
+.eco-card-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 6px; }
+.eco-card-button { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 0 16px; border: 1px solid var(--line-strong); border-radius: 999px; color: var(--ink); font-size: 0.9rem; font-weight: 600; text-decoration: none; }
+.eco-card-button.is-primary { background: var(--green-deep); border-color: var(--green-deep); color: #fff; }
+.eco-card-button:focus-visible, .eco-card-close:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+@media (max-width: 640px) {
+  .eco { width: min(360px, 100%); }
+  .eco-node { width: 17%; }
+  .eco-node-label { font-size: 0.75rem; }
+  .eco-hint { bottom: -2.2rem; }
+  .eco-card-anchor.is-sheet { position: fixed; left: 0; right: 0; bottom: 0; top: auto; transform: none; width: auto; z-index: 60; }
+  .eco-card-anchor.is-sheet .eco-card { border-radius: 22px 22px 0 0; padding: 22px 18px calc(22px + env(safe-area-inset-bottom)); box-shadow: 0 -16px 40px rgba(0, 0, 0, 0.18); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .eco-node-tile { transition: none; }
+}
 .vs-principles-head { display: flex; flex-direction: column; gap: 16px; }
 .vs-principle-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(14px, 1.6vw, 20px); }
 .vs-principle { display: flex; flex-direction: column; gap: 10px; padding: clamp(20px, 2.4vw, 28px); border-top: 2px solid var(--green); }
@@ -2889,12 +2913,12 @@ html { scroll-behavior: smooth; }
   .vs-wait-submit { width: 100%; }
 }
 @media (max-width: 960px) {
-  .vs-groups, .vs-principle-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .vs-principle-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 @media (max-width: 720px) {
   .vs-pillar-list, .vs-next-slots { grid-template-columns: minmax(0, 1fr); }
   .vs-next-slot { min-height: 96px; }
 }
 @media (max-width: 560px) {
-  .vs-groups, .vs-principle-list { grid-template-columns: minmax(0, 1fr); }
+  .vs-principle-list { grid-template-columns: minmax(0, 1fr); }
 }

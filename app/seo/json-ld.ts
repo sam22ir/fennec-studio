@@ -1,5 +1,6 @@
 import { SITE_NAME, SITE_URL } from "../site-config";
 import { projects, type ProjectSlug } from "../projects/project-data";
+import type { SiteLocale } from "./site-metadata";
 
 export type JsonLdNode = Record<string, unknown>;
 
@@ -51,15 +52,15 @@ const operatingSystem: Partial<Record<ProjectSlug, string>> = {
   nexus: "Desktop",
 };
 
-function softwareApplication(slug: ProjectSlug): JsonLdNode {
+function softwareApplication(slug: ProjectSlug, locale: SiteLocale): JsonLdNode {
   const { en, ar } = projects[slug];
   const os = operatingSystem[slug];
   return {
     "@type": "SoftwareApplication",
-    "@id": `${SITE_URL}/projects/${slug}#software`,
+    "@id": `${SITE_URL}${localePrefix[locale]}/projects/${slug}#software`,
     name: en.name,
     ...(ar.name !== en.name ? { alternateName: ar.name } : {}),
-    description: en.description,
+    description: projects[slug][locale].description,
     applicationCategory: applicationCategory[slug],
     ...(os ? { operatingSystem: os } : {}),
     ...(en.siteUrl ? { url: en.siteUrl } : {}),
@@ -67,6 +68,13 @@ function softwareApplication(slug: ProjectSlug): JsonLdNode {
     publisher: { "@id": organizationId },
   };
 }
+
+const localePrefix: Record<SiteLocale, string> = { ar: "", en: "/en" };
+
+const breadcrumbLabels: Record<SiteLocale, { home: string; projects: string }> = {
+  ar: { home: "الرئيسية", projects: "جميع المنتجات والمشاريع" },
+  en: { home: "Home", projects: "All products and projects" },
+};
 
 export interface BreadcrumbEntry {
   name: string;
@@ -85,17 +93,18 @@ export function breadcrumbJsonLd(items: readonly BreadcrumbEntry[]): JsonLdNode 
   };
 }
 
-// SoftwareApplication plus breadcrumb trail for one case study page.
-export function projectJsonLd(slug: ProjectSlug): JsonLdNode {
-  const { en } = projects[slug];
+// SoftwareApplication plus breadcrumb trail for one case study page in one language.
+export function projectJsonLd(slug: ProjectSlug, locale: SiteLocale): JsonLdNode {
+  const prefix = localePrefix[locale];
+  const labels = breadcrumbLabels[locale];
   return {
     "@context": SCHEMA_CONTEXT,
     "@graph": [
-      softwareApplication(slug),
+      softwareApplication(slug, locale),
       breadcrumbJsonLd([
-        { name: "الرئيسية", path: "/" },
-        { name: "جميع المنتجات والمشاريع", path: "/projects" },
-        { name: en.name, path: `/projects/${slug}` },
+        { name: labels.home, path: prefix || "/" },
+        { name: labels.projects, path: `${prefix}/projects` },
+        { name: projects[slug][locale].name, path: `${prefix}/projects/${slug}` },
       ]),
     ],
   };

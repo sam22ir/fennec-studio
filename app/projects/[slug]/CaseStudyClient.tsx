@@ -1,10 +1,11 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowLeft, ArrowRight, ArrowUpRight, Check, Languages } from "lucide-react";
 import { projects, type ProjectSlug } from "../project-data";
+import type { SiteLocale } from "../../seo/site-metadata";
 import {
   NabdhInteractivePreview,
   KoupaInteractivePreview,
@@ -14,17 +15,18 @@ import {
 } from "../../components/ProjectPreviews";
 import { AndroidDownload } from "../../components/AndroidDownload";
 
-type Locale = "en" | "ar";
-
 interface CaseStudyClientProps {
   slug: ProjectSlug;
+  // Each route renders one language; the language switcher links to the other one.
+  locale: SiteLocale;
 }
 
-export function CaseStudyClient({ slug }: CaseStudyClientProps) {
-  const [locale, setLocale] = useState<Locale>("ar");
+export function CaseStudyClient({ slug, locale }: CaseStudyClientProps) {
   const isArabic = locale === "ar";
   const project = projects[slug][locale];
   const BackIcon = isArabic ? ArrowRight : ArrowLeft;
+  const homeHref = isArabic ? "/" : "/en";
+  const switchHref = isArabic ? `/en/projects/${slug}` : `/projects/${slug}`;
 
   useEffect(() => {
     document.documentElement.lang = locale;
@@ -60,14 +62,12 @@ export function CaseStudyClient({ slug }: CaseStudyClientProps) {
     },
   }[locale];
 
-  const toggleLocale = () => setLocale((prev) => (prev === "en" ? "ar" : "en"));
-
   return (
     <div className={`fennec-taste-root ${isArabic ? "is-rtl" : "is-ltr"}`} dir={isArabic ? "rtl" : "ltr"}>
       <main className="case-study-modern">
         <header className="case-header">
           <div className="case-header-inner">
-            <Link href="/" className="case-brand-logo" aria-label="Fennec Studio">
+            <Link href={homeHref} className="case-brand-logo" aria-label="Fennec Studio">
               <Image
                 src="/fennec-wordmark.webp"
                 alt="Fennec"
@@ -79,17 +79,17 @@ export function CaseStudyClient({ slug }: CaseStudyClientProps) {
             </Link>
 
             <div className="case-header-actions">
-              <button
-                type="button"
+              <Link
+                href={switchHref}
                 className="lang-pill"
-                onClick={toggleLocale}
+                hrefLang={isArabic ? "en" : "ar"}
                 aria-label={ui.langAria}
               >
                 <Languages size={14} className="lang-icon" aria-hidden="true" />
                 <span className="lang-text">{ui.langSwitch}</span>
-              </button>
+              </Link>
 
-              <Link href="/#work" className="case-back-btn">
+              <Link href={`${homeHref}#work`} className="case-back-btn">
                 <BackIcon size={16} />
                 <span>{ui.back}</span>
               </Link>
@@ -245,7 +245,7 @@ export function CaseStudyClient({ slug }: CaseStudyClientProps) {
         <footer className="case-footer-modern">
           <div className="case-footer-inner">
             <div className="case-footer-brand">
-              <Link href="/" aria-label="Fennec Studio">
+              <Link href={homeHref} aria-label="Fennec Studio">
                 <Image
                   src="/fennec-wordmark.webp"
                   alt="Fennec"

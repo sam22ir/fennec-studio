@@ -1,25 +1,16 @@
 "use client";
 
-import { useEffect, type CSSProperties } from "react";
+import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import { Compass, Cpu, Globe, Languages, Layers, LayoutDashboard, MapPin, Gauge, Type } from "lucide-react";
 import { Header } from "../components/Header";
-import { productBrands } from "../components/product-brands";
-import { projects, type ProjectSlug } from "../projects/project-data";
 import { visionFaq } from "./vision-faq";
 import { WaitlistForm } from "./waitlist-form";
+import { EcosystemOrbit } from "./ecosystem-orbit";
 
 type Locale = "en" | "ar";
-
-// Ecosystem groups around the central vision. Each product links to its case study.
-const groups: { key: string; slugs: ProjectSlug[] }[] = [
-  { key: "booking", slugs: ["koupa", "lamsa"] },
-  { key: "health", slugs: ["nabdh"] },
-  { key: "money", slugs: ["masroof"] },
-  { key: "builder", slugs: ["nexus"] },
-];
 
 const copy = {
   en: {
@@ -34,7 +25,6 @@ const copy = {
     mapBadge: "Ecosystem",
     mapTitle: "Five products, one vision",
     hubLabel: "Vision",
-    groupLabels: { booking: "Booking", health: "Health", money: "Money", builder: "Builder tools" },
     principlesBadge: "Studio Principles",
     principlesTitle: "How we work",
     standards: [
@@ -70,7 +60,6 @@ const copy = {
     mapBadge: "المنظومة",
     mapTitle: "خمسة منتجات، رؤية واحدة",
     hubLabel: "الرؤية",
-    groupLabels: { booking: "الحجوزات", health: "الصحة", money: "المال", builder: "أدوات البناء" },
     principlesBadge: "مبادئ الاستوديو",
     principlesTitle: "كيف نعمل",
     standards: [
@@ -156,39 +145,7 @@ export function VisionContent({ initialLocale }: { initialLocale: Locale }) {
               <span className="section-badge">{t.mapBadge}</span>
               <h2 className="section-title" id="vs-map-title">{t.mapTitle}</h2>
             </div>
-            <div className="vs-hub" aria-hidden="true">
-              <span className="vs-hub-label">{t.hubLabel}</span>
-            </div>
-            <div className="vs-groups">
-              {groups.map((group) => (
-                <div key={group.key} className="vs-group">
-                  <h3 className="vs-group-title">{t.groupLabels[group.key as keyof typeof t.groupLabels]}</h3>
-                  <ul className="vs-group-list">
-                    {group.slugs.map((slug) => {
-                      const project = projects[slug][locale];
-                      const brand = productBrands[slug];
-                      return (
-                        <li key={slug}>
-                          <Link
-                            href={`/projects/${slug}`}
-                            className="vs-product"
-                            style={{ "--px-ink": brand.ink } as CSSProperties}
-                          >
-                            <span className="sw-product-icon" style={{ background: brand.tile }}>
-                              <Image src={brand.mark} alt="" width={56} height={56} />
-                            </span>
-                            <span className="vs-product-main">
-                              <span className="vs-product-name">{project.name}</span>
-                              <span className="vs-product-line">{project.headline}</span>
-                            </span>
-                          </Link>
-                        </li>
-                      );
-                    })}
-                  </ul>
-                </div>
-              ))}
-            </div>
+            <EcosystemOrbit locale={locale} hubLabel={t.hubLabel} />
           </div>
         </section>
 
